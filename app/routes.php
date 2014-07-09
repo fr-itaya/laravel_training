@@ -13,5 +13,20 @@
 
 Route::get('/', function()
 {
-	return View::make('hello');
+    return View::make('index');
+});
+
+Route::get('form', function() {
+
+    return View::make('form');
+});
+
+Route::post('confirm', function() {
+
+    return View::make('confirm');
+});
+
+Route::post('done', function() {
+
+    return View::make('done');
 });
