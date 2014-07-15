@@ -10,7 +10,7 @@ TOP
   </header>
 
   <nav>
-    <a href="form">フォームを入力する</a>
+    {{ HTML::link('form', '入力画面へ') }}
   </nav>
 
   <footer>

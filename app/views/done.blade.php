@@ -11,7 +11,7 @@
 
   <section>
     <p>応募しました</p>
-    <a href="index.php">TOPページへ</a>
+    {{ HTML::link('/', 'TOPへ') }} 
   </section>
 
   <footer>

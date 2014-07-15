@@ -10,7 +10,7 @@
   <header>
     <h1>フォーム>確認</h1>
   </header>
-
+  
   <section>
     <p>
       <table>
@@ -18,28 +18,28 @@
         <tr>
           <th>姓</th>
           <td>
-            {{{ $_POST['family_name'] or '' }}}
+            {{{ Input::get('family_name') }}}
           </td>
         </tr>
 
         <tr>
           <th>名</th>
           <td>
-            {{{ $_POST['given_name'] or '' }}}
+            {{{ Input::get('given_name') }}}
           </td>
         </tr>
 
         <tr>
           <th>性別</th>
           <td>
-            {{{ $_POST['sex'] or '' }}}
+            {{{ Input::get('sex') }}}
           </td>
         </tr>
 
         <tr>
           <th>郵便番号</th>
           <td>
-            {{{ $_POST['postalcode']['zone'] or '' }}}-{{{ $_POST['postalcode']['district'] or '' }}}
+            {{{ Input::get('postalcode.zone') }}}-{{{ Input::get('postalcode.district') }}}
           </td>
         </tr>
 
@@ -53,21 +53,21 @@
         <tr>
           <th>メールアドレス</th>
           <td>
-            {{{ $_POST['email'] or '' }}}
+            {{{ Input::get('email') }}}
           </td>
         </tr>
 
         <tr>
           <th>趣味</th>
           <td>
-            {{{ $hobby_view }}}
+            {{{ implode(" ", Input::get('hobby')) }}}
           </td>
         </tr>
 
         <tr>
           <th>ご意見</th>
           <td>
-            {{{ $_POST['comment'] }}}
+            {{{ Input::get('comment') }}}
           </td>
         </tr>
       </table>
@@ -76,8 +76,8 @@
 
   <nav>
     <form>
-      <p><input type="submit" value="戻る" formaction="form" formmethod="get"></p>
-      <p><input type="submit" value="送信" formaction="done" formmethod="post"></p>
+        <p>{{ Form::submit('戻る', array('formaction'=>'form', 'formmethod'=>'get')) }}</p>
+        <p>{{ Form::submit('送信', array('formaction'=>'done', 'formmethod'=>'post')) }}</p>
     </form>
   </nav>
 
