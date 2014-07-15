@@ -27,10 +27,10 @@ Route::post('confirm', function() {
     Input::flash();
     $hobby_view = implode(' ', Session::getOldInput('hobby'));
     return View::make('confirm')->with('hobby_view', $hobby_view);
-    Session::reflash();
 });
 
 Route::post('done', function() {
 
+    Session::reflash();
     return View::make('done');
 });
