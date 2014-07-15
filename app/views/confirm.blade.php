@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-確認画面
+  確認画面
 @stop
 
 
@@ -10,7 +10,7 @@
   <header>
     <h1>フォーム>確認</h1>
   </header>
-  
+
   <section>
     <p>
       <table>
@@ -75,10 +75,10 @@
   </section>
 
   <nav>
-    <form>
-        <p>{{ Form::submit('戻る', array('formaction'=>'form', 'formmethod'=>'get')) }}</p>
-        <p>{{ Form::submit('送信', array('formaction'=>'done', 'formmethod'=>'post')) }}</p>
-    </form>
+    {{ Form::open() }}
+      <p>{{ Form::submit('戻る', array('formaction'=>'form', 'formmethod'=>'get')) }}</p>
+      <p>{{ Form::submit('送信', array('formaction'=>'done', 'formmethod'=>'post')) }}</p>
+    {{ Form::close() }}
   </nav>
 
   <footer>

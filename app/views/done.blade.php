@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-ご応募ありがとうございました
+  ご応募ありがとうございました
 @stop
 
 @section('body')

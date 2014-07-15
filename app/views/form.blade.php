@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title') 
-フォーム
+  フォーム
 @stop
 
 @section('body')
