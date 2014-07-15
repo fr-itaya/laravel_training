@@ -24,10 +24,9 @@ Route::get('form', function() {
 
 Route::post('confirm', function() {
 
-    //$hobby_view = implode(" ", Session::getOldInput('hobby'));
     Input::flash();
-    //Session::flashInput($hobby_view);
-    return View::make('confirm');
+    $hobby_view = implode(' ', Session::getOldInput('hobby'));
+    return View::make('confirm')->with('hobby_view', $hobby_view);
     Session::reflash();
 });
 

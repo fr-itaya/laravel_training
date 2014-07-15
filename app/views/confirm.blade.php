@@ -60,7 +60,7 @@
         <tr>
           <th>趣味</th>
           <td>
-            {{{ implode(" ", Input::get('hobby')) }}}
+            {{{ $hobby_view }}}
           </td>
         </tr>
 
