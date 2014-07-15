@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <title>TOP</title>
-  <meta charset="utf-8">
-  <link href="style.css" rel="stylesheet" type="text/css" media="all">
-</head>
+@extends ('layouts.master')
 
-<body>
+@section('title')
+TOP
+@stop
+
+@section('body')
   <header>
     <h1>フォーム>TOPページ</h1>
   </header>
@@ -18,5 +16,4 @@
   <footer>
     <p>Copyright 2014</p>
   </footer>
-</body>
-</html>
+@stop
