@@ -11,26 +11,13 @@
 |
 */
 
-Route::get('/', function()
-{
-    Session::flush();
-    return View::make('index');
-});
+Route::get('/', 'FormController@getIndex');
 
-Route::get('form', function() {
+Route::get('form', 'FormController@getForm');
 
-    return View::make('form');
-});
+Route::post('confirm', 'FormController@postConfirm');
 
-Route::post('confirm', function() {
+Route::post('done', 'FormController@postDone');
 
-    Input::flash();
-    $hobby_view = implode(' ', Session::getOldInput('hobby'));
-    return View::make('confirm')->with('hobby_view', $hobby_view);
-});
-
-Route::post('done', function() {
-
-    Session::reflash();
-    return View::make('done');
-});
+//RESTfulにするなら下記でも良いらしく
+//Route::controller('/', 'FormController');
