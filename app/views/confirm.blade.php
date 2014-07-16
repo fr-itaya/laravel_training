@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <title>確認画面</title>
-  <meta charset="utf-8">
-  <link href="style.css" rel="stylesheet" type="text/css" media="all">
-</head>
+@extends('layouts.master')
 
-<body>
+@section('title')
+  確認画面
+@stop
+
+
+
+@section('body')
   <header>
     <h1>フォーム>確認</h1>
   </header>
@@ -18,48 +18,56 @@
         <tr>
           <th>姓</th>
           <td>
+            {{{ Input::get('family_name') }}}
           </td>
         </tr>
 
         <tr>
           <th>名</th>
           <td>
+            {{{ Input::get('given_name') }}}
           </td>
         </tr>
 
         <tr>
           <th>性別</th>
           <td>
+            {{{ Input::get('sex') }}}
           </td>
         </tr>
 
         <tr>
           <th>郵便番号</th>
           <td>
+            {{{ Input::get('postalcode.zone') }}}-{{{ Input::get('postalcode.district') }}}
           </td>
         </tr>
 
         <tr>
           <th>都道府県</th>
           <td>
+            <!--PENDING-->
           </td>
         </tr>
 
         <tr>
           <th>メールアドレス</th>
           <td>
+            {{{ Input::get('email') }}}
           </td>
         </tr>
 
         <tr>
           <th>趣味</th>
           <td>
+            {{{ $hobby_view }}}
           </td>
         </tr>
 
         <tr>
           <th>ご意見</th>
           <td>
+            {{{ Input::get('comment') }}}
           </td>
         </tr>
       </table>
@@ -67,16 +75,13 @@
   </section>
 
   <nav>
-    <form>
-      <p><input type="submit" value="戻る" formaction="form" formmethod="get"></p>
-      <p><input type="submit" value="送信" formaction="done" formmethod="post"></p>
-    </form>
+    {{ Form::open() }}
+      <p>{{ Form::submit('戻る', array('formaction'=>'form', 'formmethod'=>'get')) }}</p>
+      <p>{{ Form::submit('送信', array('formaction'=>'done', 'formmethod'=>'post')) }}</p>
+    {{ Form::close() }}
   </nav>
 
   <footer>
     <p>&copy; 2014</p>
   </footer>
-
-</body>
-</html>
-
+@stop

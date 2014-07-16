@@ -1,63 +1,60 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <title>フォーム</title>
-  <meta charset="utf-8">
-  <link href="style.css" rel="stylesheet" type="text/css" media="all">
-</head>
+@extends('layouts.master')
 
-<body>
+@section('title') 
+  フォーム
+@stop
+
+@section('body')
   <header>
     <h1>フォーム>入力</h1>
   </header>
 
   <section>
-    <form action="confirm" method="post">
+    {{ Form::open(array('url'=>'confirm', 'method'=>'post')) }}
       <fieldset name="form">
         <legend>フォーム</legend>
   
         <p>
-          <label>姓：</label><input type="text" name="family_name" size="20" value=''>
-          <label>名：</label><input type="text" name="given_name" size="20" value=''>
+        {{ Form::label('family_name', '姓：') }}{{ Form::text('family_name', Session::getOldInput('family_name', '')) }}
+        {{ Form::label('given_name', '名：') }}{{ Form::text('given_name', Session::getOldInput('given_name', '')) }}
         </p>
 
         <p>
-          <label>性別：</label>
+        {{ Form::label('sex', '性別：') }}
           <ul class="gender">
-            <li><input type="radio" name="sex" value='男性'>男性</li>
-            <li><input type="radio" name="sex" value='女性'>女性</li>
+            <li>{{ Form::radio('sex', '男性', Session::getOldInput('sex', false)) }}男性</li>
+            <li>{{ Form::radio('sex', '女性', Session::getOldInput('sex', false)) }}女性</li>
           </ul>
         </p>
 
-        <p><label>郵便番号：</label><input type="text" name="postalcode[zone]" size="10" maxlength="3" value=''>-<input type="text" name="postalcode[district]" size="10" maxlength="4" value=''></p>
+        <p>{{ Form::label('postalcode', '郵便番号：') }}{{ Form::text('postalcode[zone]', Session::getOldInput('postalcode[zone]', '')) }}-{{ Form::text('postalcode[district]', Session::getOldInput('postalcode[district]', '')) }}</p>
 
         <p>
-          <label>都道府県：</label>
-         <!--PENDING--> 
+        {{ Form::label('prefecture', '都道府県：') }}
+          <!--PENDING--> 
         </p>
 
-        <p><label>メールアドレス：</label><input type="email" name="email" size="30" maxlength="40" value=''></p>
+        <p>{{ Form::label('email', 'メールアドレス：') }}{{ Form::email('email', Session::getOldInput('email', '')) }}</p>
 
         <p>
-          <label>趣味はなんですか：</label>
-          <input type="hidden" name="hobby[1]" value=''>
-          <input type="checkbox" name="hobby[1]" value='音楽鑑賞'>音楽鑑賞
-          <input type="hidden" name="hobby[2]" value=''>
-          <input type="checkbox" name="hobby[2]" value='映画鑑賞'>映画鑑賞
-          <input type="hidden" name="hobby[3]" value=''>
-          <input type="checkbox" name="hobby[3]" value='その他：'>その他
-          <input type="text" name="hobby[4]" size="10" maxlength="15" value=''>
+          {{ Form::label('hobby', '趣味はなんですか：') }}
+          {{ Form::hidden('hobby[1]', '') }}
+          {{ Form::checkbox('hobby[1]', '音楽鑑賞', !empty(Session::getOldInput('hobby[1]') ? true : false)) }}音楽鑑賞
+          {{ Form::hidden('hobby[2]', '') }}
+          {{ Form::checkbox('hobby[2]', '映画鑑賞', !empty(Session::getOldInput('hobby[2]') ? true : false)) }}映画鑑賞
+          {{ Form::hidden('hobby[3]', '')}}
+          {{ Form::checkbox('hobby[3]', 'その他：', !empty(Session::getOldInput('hobby[3]') ? true : false)) }}その他
+          {{ Form::text('hobby[4]', Session::getOldInput('hobby[4]', '')) }}
         </p>
 
-        <p><label>ご意見：</label><textarea name="comment" cols="20" rows="2" maxlength="40"></textarea></p>
+        <p>{{ Form::label('comment', 'ご意見：') }}{{ Form::textarea('comment') }}</p>
 
-        <p><input type="submit" value="確認" formaction="confirm"></p>
+        <p>{{ Form::submit('確認') }}</p>
       </fieldset>
-    </form>
+    {{ Form::close() }}
   </section>
 
   <footer>
      <p>&copy; 2014</p>
   </footer>
-</body>
-</html>
+@stop

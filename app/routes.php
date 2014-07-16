@@ -13,6 +13,7 @@
 
 Route::get('/', function()
 {
+    Session::flush();
     return View::make('index');
 });
 
@@ -23,10 +24,13 @@ Route::get('form', function() {
 
 Route::post('confirm', function() {
 
-    return View::make('confirm');
+    Input::flash();
+    $hobby_view = implode(' ', Session::getOldInput('hobby'));
+    return View::make('confirm')->with('hobby_view', $hobby_view);
 });
 
 Route::post('done', function() {
 
+    Session::reflash();
     return View::make('done');
 });
