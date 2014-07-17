@@ -19,6 +19,4 @@ class FormController extends BaseController {
         Session::reflash();
         return View::make('done');
     }
-
-
 }
