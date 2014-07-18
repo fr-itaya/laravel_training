@@ -12,7 +12,19 @@ class FormController extends BaseController {
     public function postConfirm() {
         Input::flash();
         if ($form_data = Input::all()) {
-            $regex = "/(?:\xEF\xBD[\xA1-\xBF]|\xEF\xBE[\x80-\x9F])|[\x20-\x7E]/u";
+            $form_data_trimmed = array();
+            foreach ($form_data as $key => $val) {
+                if (is_array($val)) {
+                    //配列の場合
+                    foreach ($val as $key_array => $val_array) {
+                        $form_data_trimmed[$key][$key_array] = trim(mb_convert_kana($val[$key_array], 's', 'utf-8'));
+                    }
+                } else {
+                    //変数の場合
+                    $form_data_trimmed[$key] = trim(mb_convert_kana($val, 's', 'utf-8'));
+                }
+            }
+            $regex = "/(?:\xEF\xBD[\xA1-\xBF]|\xEF\xBE[\x80-\x9F])|[\x20-\x7E]/";
             $rules = array(
                 'family_name'=>array('required','regex:{{$regex}}', 'max:50'),
                 'given_name'=>array('required','regex:{{$regex}}', 'max:50'),
@@ -43,7 +55,7 @@ class FormController extends BaseController {
             );
 
 
-            $validator = Validator::make($form_data, $rules,$error_messages);
+            $validator = Validator::make($form_data_trimmed, $rules,$error_messages);
             $validator->setAttributeNames($names);
 
             if ($validator->fails()) {
