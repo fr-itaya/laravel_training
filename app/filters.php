@@ -13,7 +13,10 @@
 
 App::before(function($request)
 {
-	//
+    //CSRF token filter for all POST request.
+    if ($request->getMethod() === 'POST') {
+        Route::callRouteFilter('csrf', [], '', $request);
+    }
 });
 
 

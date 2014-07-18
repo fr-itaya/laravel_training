@@ -9,6 +9,10 @@
     <h1>フォーム>入力</h1>
   </header>
 
+  <!--debug--> 
+  <pre><?php var_dump(Session::getOldInput()); ?></pre>
+  <p>{{implode("<br>", $errors->all());}}</p>
+
   <section>
     {{ Form::open(array('url'=>'confirm', 'method'=>'post')) }}
       <fieldset name="form">
