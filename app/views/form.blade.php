@@ -11,7 +11,12 @@
 
   <!--debug--> 
   <pre><?php var_dump(Session::getOldInput()); ?></pre>
-  <p>{{implode("<br>", $errors->all());}}</p>
+
+  <section>
+    @foreach ($errors->all() as $errormsg)
+      <p class="error">{{ $errormsg }}</p>
+    @endforeach
+  </section>
 
   <section>
     {{ Form::open(array('url'=>'confirm', 'method'=>'post')) }}
