@@ -15,7 +15,7 @@ Route::get('/', 'FormController@getIndex');
 
 Route::get('form', 'FormController@getForm');
 
-Route::post('confirm', 'FormController@postConfirm');
+Route::post('confirm', ['before'=>'csrf', 'uses'=>'FormController@postConfirm']);
 
 Route::post('done', 'FormController@postDone');
 
