@@ -32,8 +32,8 @@ class FormController extends BaseController {
                 'given_name'           => array('required', 'regex_full_width_chars', 'max:50'),
                 'sex'                  => 'required',
                 'postalcode'           => 'array',
-                'postalcode[zone]'     => 'required|numeric|size:3',
-                'postalcode[district]' => 'required|numeric|size:4',
+                'postalcode.zone'      => 'required|regex:/^[0-9]+$/|size:3',
+                'postalcode.district'  => 'required|regex:/^[0-9]+$/|size:4',
                 //prefecture
                 'email'                => 'required | email'
             );
@@ -51,8 +51,8 @@ class FormController extends BaseController {
                 'family_name'=> '姓',
                 'given_name' => '名',
                 'sex' => '性別',
-                'postalcode[zone]' => '郵便番号上3桁',
-                'postalcode[district]' => '郵便番号下4桁',
+                'postalcode.zone' => '郵便番号上3桁',
+                'postalcode.district' => '郵便番号下4桁',
                 'email' => 'メールアドレス' 
             );
 
