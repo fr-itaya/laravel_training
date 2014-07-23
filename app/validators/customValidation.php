@@ -9,5 +9,5 @@ class CustomValidator
         } else {
             return true;
         }
-    } 
+    }
 }

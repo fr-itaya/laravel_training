@@ -35,7 +35,8 @@ class FormController extends BaseController {
                 'postalcode.zone'      => 'required|regex:/^[0-9]+$/|size:3',
                 'postalcode.district'  => 'required|regex:/^[0-9]+$/|size:4',
                 //prefecture
-                'email'                => 'required | email'
+                'email'                => 'required | email',
+                'hobby.4'              => 'required_if:hobby.3,"その他："'
             );
 
             $error_messages = array(
@@ -44,7 +45,8 @@ class FormController extends BaseController {
                 'max'                       => ':attributeを:max字以内で入力してください',
                 'numeric'                   => ':attributeは数字で入力してください',
                 'size'                      => ':attributeは:size桁で入力してください',
-                'email'                     => ':attributeを正しく入力してください'
+                'email'                     => ':attributeを正しく入力してください',
+                'required_if'               => ':attributeを入力してください'
             );
 
             $names = array(
@@ -53,7 +55,8 @@ class FormController extends BaseController {
                 'sex' => '性別',
                 'postalcode.zone' => '郵便番号上3桁',
                 'postalcode.district' => '郵便番号下4桁',
-                'email' => 'メールアドレス' 
+                'email' => 'メールアドレス',
+                'hobby.4' => 'その他の詳細'
             );
 
 
