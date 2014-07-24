@@ -24,6 +24,7 @@ class FormController extends BaseController {
                     $form_data_trimmed[$key] = trim(mb_convert_kana($val, 's', 'utf-8'));
                 }
             }
+
             
             Validator::extend('regex_full_width_chars', 'CustomValidator@regexFullWidthChars');
             
@@ -59,14 +60,22 @@ class FormController extends BaseController {
                 'hobby.4' => 'その他の詳細'
             );
 
+        //チェックボックスへの自動入力
+        if (Input::has('hobby.4') && empty(Input::get('hobby.3'))) {
+            Input::merge(array('hobby.3' => "その他："));
+            Input::flash();
+        }
 
             $validator = Validator::make($form_data_trimmed, $rules,$error_messages);
             $validator->setAttributeNames($names);
+
 
             if ($validator->fails()) {
                 return Redirect::to('form')->withErrors($validator);
             }
         }
+        
+        //確認画面表示用
         $hobby_view = implode(' ', Session::getOldInput('hobby'));
         return View::make('confirm')->with('hobby_view', $hobby_view);
     }

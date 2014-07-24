@@ -9,7 +9,10 @@
     <h1>フォーム>入力</h1>
   </header>
 
-  <!--debug--> 
+  <!--debug-->
+  ▼POST
+  <pre><?php var_dump(Input::get()); ?></pre>
+  ▼SESSION
   <pre><?php var_dump(Session::getOldInput()); ?></pre>
 
   <section>
