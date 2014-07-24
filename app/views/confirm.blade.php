@@ -10,10 +10,10 @@
   <header>
     <h1>フォーム>確認</h1>
   </header>
-    ▼POST
-<pre><?php var_dump($_POST); ?></pre>
-    ▼SESSION
-<pre><?php var_dump(Session::getOldInput()); ?></pre>
+  ▼POST
+  <pre><?php var_dump($_POST); ?></pre>
+  ▼SESSION
+  <pre><?php var_dump(Session::getOldInput()); ?></pre>
   <section>
     <p>
       <table>

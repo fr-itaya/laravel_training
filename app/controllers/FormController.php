@@ -24,7 +24,6 @@ class FormController extends BaseController {
                     $form_data_trimmed[$key] = trim(mb_convert_kana($val, 's', 'utf-8'));
                 }
             }
-
             
             Validator::extend('regex_full_width_chars', 'CustomValidator@regexFullWidthChars');
             
@@ -68,7 +67,6 @@ class FormController extends BaseController {
 
             $validator = Validator::make($form_data_trimmed, $rules,$error_messages);
             $validator->setAttributeNames($names);
-
 
             if ($validator->fails()) {
                 return Redirect::to('form')->withErrors($validator);
