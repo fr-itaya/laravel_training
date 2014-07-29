@@ -79,11 +79,3 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
-
-/*CustomValidateResolver*/
-/*
-Validator::resolver(function($translator, $data, $rules, $messages)
-{
-    return new CustomValidator($translator, $data, $rules, $messages);
-});
-*/
