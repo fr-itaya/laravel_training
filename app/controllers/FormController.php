@@ -42,9 +42,9 @@ class FormController extends BaseController {
             $error_messages = array(
                 'required'                  => ':attributeを入力してください',
                 'regex_full_width_chars'    => ':attributeは全角で入力してください',
+                'regex'                     => ':attributeを正しく入力してください',
                 'max'                       => ':attributeを:max字以内で入力してください',
-                'numeric'                   => ':attributeは数字で入力してください',
-                'size'                      => ':attributeは:size桁で入力してください',
+                'size'                      => ':attributeを正しく入力してください',
                 'email'                     => ':attributeを正しく入力してください',
                 'required_if'               => ':attributeを入力してください'
             );
@@ -53,17 +53,17 @@ class FormController extends BaseController {
                 'family_name'=> '姓',
                 'given_name' => '名',
                 'sex' => '性別',
-                'postalcode.zone' => '郵便番号上3桁',
-                'postalcode.district' => '郵便番号下4桁',
+                'postalcode.zone' => '郵便番号',
+                'postalcode.district' => '郵便番号',
                 'email' => 'メールアドレス',
                 'hobby.4' => 'その他の詳細'
             );
 
-        //チェックボックスへの自動入力
-        if (Input::has('hobby.4') && empty(Input::get('hobby.3'))) {
-            Input::merge(array('hobby' => array(1 => Input::get('hobby.1'), 2 => Input::get('hobby.2'), 3 => "その他：", 4 => Input::get('hobby.4'))));
-            Input::flash();
-        }
+            //チェックボックスへの自動入力
+            if (Input::has('hobby.4') && empty(Input::get('hobby.3'))) {
+                Input::merge(array('hobby' => array(1 => Input::get('hobby.1'), 2 => Input::get('hobby.2'), 3 => "その他：", 4 => Input::get('hobby.4'))));
+                Input::flash();
+            }
 
             $validator = Validator::make($form_data_trimmed, $rules,$error_messages);
             $validator->setAttributeNames($names);

@@ -9,12 +9,6 @@
     <h1>フォーム>入力</h1>
   </header>
 
-  <!--debug-->
-  ▼POST
-  <pre><?php var_dump(Input::get()); ?></pre>
-  ▼SESSION
-  <pre><?php var_dump(Session::getOldInput()); ?></pre>
-
   <section>
     @foreach ($errors->all() as $errormsg)
       <p class="error">{{ $errormsg }}</p>
