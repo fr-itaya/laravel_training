@@ -61,7 +61,7 @@ class FormController extends BaseController {
 
         //チェックボックスへの自動入力
         if (Input::has('hobby.4') && empty(Input::get('hobby.3'))) {
-            Input::merge(array('hobby.3' => "その他："));
+            Input::merge(array('hobby' => array(1 => Input::get('hobby.1'), 2 => Input::get('hobby.2'), 3 => "その他：", 4 => Input::get('hobby.4'))));
             Input::flash();
         }
 
