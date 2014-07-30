@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title') 
+@section('title')
   フォーム
 @stop
 
@@ -10,8 +10,8 @@
   </header>
 
   <section>
-    @foreach ($errors->all() as $errormsg)
-      <p class="error">{{ $errormsg }}</p>
+    @foreach ($errors->all() as $error_msg)
+      <p class="error">{{ $error_msg }}</p>
     @endforeach
   </section>
 
@@ -19,7 +19,7 @@
     {{ Form::open(array('url'=>'confirm', 'method'=>'post')) }}
       <fieldset name="form">
         <legend>フォーム</legend>
-  
+
         <p>
         {{ Form::label('family_name', '姓：') }}{{ Form::text('family_name', Session::getOldInput('family_name', '')) }}
         {{ Form::label('given_name', '名：') }}{{ Form::text('given_name', Session::getOldInput('given_name', '')) }}
@@ -37,7 +37,7 @@
 
         <p>
         {{ Form::label('prefecture', '都道府県：') }}
-          <!--PENDING--> 
+          <!--PENDING-->
         </p>
 
         <p>{{ Form::label('email', 'メールアドレス：') }}{{ Form::email('email', Session::getOldInput('email', '')) }}</p>

@@ -24,9 +24,9 @@ class FormController extends BaseController {
                     $form_data_trimmed[$key] = trim(mb_convert_kana($val, 's', 'utf-8'));
                 }
             }
-            
+
             Validator::extend('regex_full_width_chars', 'CustomValidator@regexFullWidthChars');
-            
+
             $rules = array(
                 'family_name'          => array('required', 'regex_full_width_chars', 'max:50'),
                 'given_name'           => array('required', 'regex_full_width_chars', 'max:50'),
@@ -40,28 +40,34 @@ class FormController extends BaseController {
             );
 
             $error_messages = array(
-                'required'                  => ':attributeを入力してください',
-                'regex_full_width_chars'    => ':attributeは全角で入力してください',
-                'regex'                     => ':attributeを正しく入力してください',
-                'max'                       => ':attributeを:max字以内で入力してください',
-                'size'                      => ':attributeを正しく入力してください',
-                'email'                     => ':attributeを正しく入力してください',
-                'required_if'               => ':attributeを入力してください'
+                'required'               => ':attributeを入力してください',
+                'regex_full_width_chars' => ':attributeは全角で入力してください',
+                'regex'                  => ':attributeを正しく入力してください',
+                'max'                    => ':attributeを:max字以内で入力してください',
+                'size'                   => ':attributeを正しく入力してください',
+                'email'                  => ':attributeを正しく入力してください',
+                'required_if'            => ':attributeを入力してください'
             );
 
             $names = array(
-                'family_name'=> '姓',
-                'given_name' => '名',
-                'sex' => '性別',
-                'postalcode.zone' => '郵便番号',
+                'family_name'         => '姓',
+                'given_name'          => '名',
+                'sex'                 => '性別',
+                'postalcode.zone'     => '郵便番号',
                 'postalcode.district' => '郵便番号',
-                'email' => 'メールアドレス',
-                'hobby.4' => 'その他の詳細'
+                'email'               => 'メールアドレス',
+                'hobby.4'             => 'その他の詳細'
             );
 
             //チェックボックスへの自動入力
+            $hobbies = array(
+                1 => Input::get('hobby.1'),
+                2 => Input::get('hobby.2'),
+                3 => "その他：",
+                4 => Input::get('hobby.4')
+            );
             if (Input::has('hobby.4') && empty(Input::get('hobby.3'))) {
-                Input::merge(array('hobby' => array(1 => Input::get('hobby.1'), 2 => Input::get('hobby.2'), 3 => "その他：", 4 => Input::get('hobby.4'))));
+                Input::merge(array('hobby' => $hobbies));
                 Input::flash();
             }
 
@@ -72,7 +78,7 @@ class FormController extends BaseController {
                 return Redirect::to('form')->withErrors($validator);
             }
         }
-        
+
         //確認画面表示用
         $hobby_view = implode(' ', Session::getOldInput('hobby'));
         return View::make('confirm')->with('hobby_view', $hobby_view);

@@ -4,9 +4,8 @@ class CustomValidator
 {
     public function regexFullWidthChars ($attribute, $value)
     {
-        if (preg_match("/(?:\xEF\xBD[\xA1-\xBF]|\xEF\xBE[\x80-\x9F])|[\x20-\x7E]/", $value)) {
-            return false;
-        } else {
+        $pattern = "/(?:\xEF\xBD[\xA0-\xBF]|\xEF\xBE[\x80-\x9F])|[\x20-\x7E]/";
+        if (!preg_match($pattern, $value)) {
             return true;
         }
     }
