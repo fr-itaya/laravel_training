@@ -4,13 +4,11 @@
   確認画面
 @stop
 
-
-
 @section('body')
   <header>
     <h1>フォーム>確認</h1>
   </header>
-
+ 
   <section>
     <p>
       <table>

@@ -42,6 +42,10 @@ section p {
   font-weight: bold;
 }
 
+.error {
+  color: red;
+}
+
 a {
   color: rgba(255, 99, 71, 0.9);
 }
