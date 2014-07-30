@@ -10,4 +10,12 @@ class CustomValidator
         }
         return true;
     }
+
+    public function pref_required ($attribute, $value)
+    {
+        if ($value === '0') {
+            return false;
+        }
+        return true;
+    }
 }
