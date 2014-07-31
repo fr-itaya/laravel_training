@@ -6,7 +6,12 @@ class FormController extends BaseController {
     }
 
     public function getForm() {
-        return View::make('form');
+        $pref_none = array(0 => '--');
+        $data['pref_data'] = Prefecture::get(['pref_name'])->toArray();
+        $data['pref_data'] = array_merge($pref_none, $data['pref_data']);
+        $data['pref_data'] = array_flatten($data['pref_data']);
+
+        return View::make('form')->with('data', $data);
     }
 
     public function postConfirm() {
@@ -89,7 +94,7 @@ class FormController extends BaseController {
 
     public function postDone() {
         Session::reflash();
-        if(Input::get()) {
+        if(Session::getOldInput()) {
           $data['last_name'] = Session::getOldInput('family_name');
           $data['first_name'] = Session::getOldInput('given_name');
           $data['email'] = Session::getOldInput('email');

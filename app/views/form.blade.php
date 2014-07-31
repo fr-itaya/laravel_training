@@ -11,6 +11,7 @@
 <pre>
 ▼POST
 <?php var_dump($_POST); ?>
+<?php var_dump($data); ?>
 ▼SESSION
 <?php var_dump(Session::getOldInput()); ?>
 </pre>
@@ -41,7 +42,7 @@
         <p>{{ Form::label('postalcode', '郵便番号：') }}{{ Form::text('postalcode[zone]', Session::getOldInput('postalcode[zone]', '')) }}-{{ Form::text('postalcode[district]', Session::getOldInput('postalcode[district]', '')) }}</p>
 
         <p>
-        {{ Form::label('prefecture', '都道府県：') }}{{ Form::select('prefecture', array('--', '北海道', '東京都', '大阪府', '愛知県', '福岡県', '沖縄県'), Session::getOldInput('prefecture') or '0') }}
+        {{ Form::label('prefecture', '都道府県：') }}{{ Form::select('prefecture', $data['pref_data'], Session::getOldInput('prefecture') or '0') }}
         </p>
 
         <p>{{ Form::label('email', 'メールアドレス：') }}{{ Form::email('email', Session::getOldInput('email', '')) }}</p>
