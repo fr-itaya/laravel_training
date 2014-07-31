@@ -95,7 +95,6 @@ class FormController extends BaseController {
           $data['email'] = Session::getOldInput('email');
           $data['pref_id'] = Session::getOldInput('prefecture');
           $create = User::create($data);
-
         }
         return View::make('done');
     }
