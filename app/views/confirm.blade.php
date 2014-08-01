@@ -47,7 +47,7 @@
         <tr>
           <th>都道府県</th>
           <td>
-            {{{ Input::get('pref_id') }}}
+            {{{ $pref_view }}}
           </td>
         </tr>
 

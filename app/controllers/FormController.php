@@ -89,7 +89,8 @@ class FormController extends BaseController {
 
         //確認画面表示用
         $hobby_view = implode(' ', Session::getOldInput('hobby'));
-        return View::make('confirm')->with('hobby_view', $hobby_view);
+        $pref_view  = Prefecture::where('pref_id', Session::getOldInput('pref_id'))->pluck('pref_name');
+        return View::make('confirm')->with(array('hobby_view' => $hobby_view, 'pref_view' => $pref_view));
     }
 
     public function postDone() {
