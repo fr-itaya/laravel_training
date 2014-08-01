@@ -7,9 +7,8 @@ class FormController extends BaseController {
 
     public function getForm() {
         $pref_none = array(0 => '--');
-        $data['pref_data'] = Prefecture::get(['pref_name'])->toArray();
-        $data['pref_data'] = array_merge($pref_none, $data['pref_data']);
-        $data['pref_data'] = array_flatten($data['pref_data']);
+        $pref_name = Prefecture::lists('pref_name', 'pref_id');
+        $data['pref_data'] = $pref_none + $pref_name;
 
         return View::make('form')->with('data', $data);
     }
@@ -96,10 +95,6 @@ class FormController extends BaseController {
     public function postDone() {
         Session::reflash();
         if (Session::getOldInput()) {
-            // $data['last_name'] = Session::getOldInput('family_name');
-            // $data['first_name'] = Session::getOldInput('given_name');
-            // $data['email'] = Session::getOldInput('email');
-            // $data['pref_id'] = Session::getOldInput('prefecture');
             $data = array_only(Session::getOldInput(), array('last_name', 'first_name', 'email', 'pref_id'));
             $create = User::create($data);
         }

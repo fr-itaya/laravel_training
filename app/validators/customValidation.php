@@ -11,10 +11,9 @@ class CustomValidator
         return true;
     }
 
-    public function pref_required ($attribute, $value)
+    public function pref_required ($attribute, $value, $search_array)
     {
-        $pattern = "/^[1-9]$|^[1-3][0-9]$|^4[0-7]$/";
-        if (preg_match($pattern, $value)) {
+        if (isset($value, $search_array)) {
             return true;
         }
         return false;

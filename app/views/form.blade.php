@@ -8,13 +8,7 @@
   <header>
     <h1>フォーム>入力</h1>
   </header>
-<pre>
-▼POST
-<?php var_dump($_POST); ?>
-<?php var_dump($data); ?>
-▼SESSION
-<?php var_dump(Session::getOldInput()); ?>
-</pre>
+
   <section>
     @foreach ($errors->all() as $error_msg)
       <p class="error">{{ $error_msg }}</p>
