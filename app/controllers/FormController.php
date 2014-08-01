@@ -95,11 +95,11 @@ class FormController extends BaseController {
     public function postDone() {
         Session::reflash();
         if(Session::getOldInput()) {
-         // $data['last_name'] = Session::getOldInput('family_name');
-         // $data['first_name'] = Session::getOldInput('given_name');
-         // $data['email'] = Session::getOldInput('email');
-         // $data['pref_id'] = Session::getOldInput('prefecture');
-        $data = array_only(Session::getOldInput(), array('last_name', 'first_name', 'email', 'pref_id'));
+          // $data['last_name'] = Session::getOldInput('family_name');
+          // $data['first_name'] = Session::getOldInput('given_name');
+          // $data['email'] = Session::getOldInput('email');
+          // $data['pref_id'] = Session::getOldInput('prefecture');
+          $data = array_only(Session::getOldInput(), array('last_name', 'first_name', 'email', 'pref_id'));
           $create = User::create($data);
         }
         return View::make('done');
