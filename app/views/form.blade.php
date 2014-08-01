@@ -27,8 +27,8 @@
         <legend>フォーム</legend>
 
         <p>
-        {{ Form::label('family_name', '姓：') }}{{ Form::text('family_name', Session::getOldInput('family_name', '')) }}
-        {{ Form::label('given_name', '名：') }}{{ Form::text('given_name', Session::getOldInput('given_name', '')) }}
+        {{ Form::label('last_name', '姓：') }}{{ Form::text('last_name', Session::getOldInput('last_name', '')) }}
+        {{ Form::label('first_name', '名：') }}{{ Form::text('first_name', Session::getOldInput('first_name', '')) }}
         </p>
 
         <p>
@@ -42,7 +42,7 @@
         <p>{{ Form::label('postalcode', '郵便番号：') }}{{ Form::text('postalcode[zone]', Session::getOldInput('postalcode[zone]', '')) }}-{{ Form::text('postalcode[district]', Session::getOldInput('postalcode[district]', '')) }}</p>
 
         <p>
-        {{ Form::label('prefecture', '都道府県：') }}{{ Form::select('prefecture', $data['pref_data'], Session::getOldInput('prefecture') or '0') }}
+        {{ Form::label('pref_id', '都道府県：') }}{{ Form::select('pref_id', $data['pref_data'], Session::getOldInput('pref_id') or '0') }}
         </p>
 
         <p>{{ Form::label('email', 'メールアドレス：') }}{{ Form::email('email', Session::getOldInput('email', '')) }}</p>

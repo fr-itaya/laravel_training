@@ -19,14 +19,14 @@
         <tr>
           <th>姓</th>
           <td>
-            {{{ Input::get('family_name') }}}
+            {{{ Input::get('last_name') }}}
           </td>
         </tr>
 
         <tr>
           <th>名</th>
           <td>
-            {{{ Input::get('given_name') }}}
+            {{{ Input::get('first_name') }}}
           </td>
         </tr>
 
@@ -47,7 +47,7 @@
         <tr>
           <th>都道府県</th>
           <td>
-            {{{ Input::get('prefecture') }}}
+            {{{ Input::get('pref_id') }}}
           </td>
         </tr>
 

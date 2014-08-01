@@ -34,13 +34,13 @@ class FormController extends BaseController {
             Validator::extend('pref_required', 'CustomValidator@pref_required');
 
             $rules = array(
-                'family_name'          => array('required', 'regex_full_width_chars', 'max:50'),
-                'given_name'           => array('required', 'regex_full_width_chars', 'max:50'),
+                'last_name'            => array('required', 'regex_full_width_chars', 'max:50'),
+                'first_name'           => array('required', 'regex_full_width_chars', 'max:50'),
                 'sex'                  => 'required',
                 'postalcode'           => 'array',
                 'postalcode.zone'      => 'required|regex:/^[0-9]+$/|size:3',
                 'postalcode.district'  => 'required|regex:/^[0-9]+$/|size:4',
-                'prefecture'           => 'pref_required',
+                'pref_id'              => 'pref_required',
                 'email'                => 'required | email',
                 'hobby.4'              => 'required_if:hobby.3,"その他："'
             );
@@ -57,12 +57,12 @@ class FormController extends BaseController {
             );
 
             $names = array(
-                'family_name'         => '姓',
-                'given_name'          => '名',
+                'last_name'           => '姓',
+                'first_name'          => '名',
                 'sex'                 => '性別',
                 'postalcode.zone'     => '郵便番号',
                 'postalcode.district' => '郵便番号',
-                'prefecture'          => '都道府県',
+                'pref_id'             => '都道府県',
                 'email'               => 'メールアドレス',
                 'hobby.4'             => 'その他の詳細'
             );
@@ -95,10 +95,11 @@ class FormController extends BaseController {
     public function postDone() {
         Session::reflash();
         if(Session::getOldInput()) {
-          $data['last_name'] = Session::getOldInput('family_name');
-          $data['first_name'] = Session::getOldInput('given_name');
-          $data['email'] = Session::getOldInput('email');
-          $data['pref_id'] = Session::getOldInput('prefecture');
+         // $data['last_name'] = Session::getOldInput('family_name');
+         // $data['first_name'] = Session::getOldInput('given_name');
+         // $data['email'] = Session::getOldInput('email');
+         // $data['pref_id'] = Session::getOldInput('prefecture');
+        $data = array_only(Session::getOldInput(), array('last_name', 'first_name', 'email', 'pref_id'));
           $create = User::create($data);
         }
         return View::make('done');
