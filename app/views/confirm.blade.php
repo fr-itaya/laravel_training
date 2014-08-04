@@ -65,7 +65,7 @@
         <tr>
           <th>ご意見</th>
           <td>
-            {{{ Input::get('comment') }}}
+            {{ nl2br(Input::get('comment')) }}
           </td>
         </tr>
       </table>
