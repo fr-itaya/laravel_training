@@ -10,12 +10,4 @@ class CustomValidator
         }
         return true;
     }
-
-    public function pref_required ($attribute, $value, $search_array)
-    {
-        if (isset($value, $search_array)) {
-            return true;
-        }
-        return false;
-    }
 }

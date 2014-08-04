@@ -30,7 +30,6 @@ class FormController extends BaseController {
             }
 
             Validator::extend('regex_full_width_chars', 'CustomValidator@regexFullWidthChars');
-            Validator::extend('pref_required', 'CustomValidator@pref_required');
 
             $rules = array(
                 'last_name'            => array('required', 'regex_full_width_chars', 'max:50'),
@@ -39,14 +38,14 @@ class FormController extends BaseController {
                 'postalcode'           => 'array',
                 'postalcode.zone'      => 'required|regex:/^[0-9]+$/|size:3',
                 'postalcode.district'  => 'required|regex:/^[0-9]+$/|size:4',
-                'pref_id'              => 'pref_required',
+                'pref_id'              => 'exists:prefectures,pref_id',
                 'email'                => 'required | email',
                 'hobby.4'              => 'required_if:hobby.3,"その他："'
             );
 
             $error_messages = array(
                 'required'               => ':attributeを入力してください',
-                'pref_required'          => ':attributeを入力してください',
+                'exists'                 => ':attributeを入力してください',
                 'regex_full_width_chars' => ':attributeは全角で入力してください',
                 'regex'                  => ':attributeを正しく入力してください',
                 'max'                    => ':attributeを:max字以内で入力してください',
