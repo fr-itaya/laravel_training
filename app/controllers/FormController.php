@@ -95,7 +95,7 @@ class FormController extends BaseController {
         Session::reflash();
         if (Session::getOldInput()) {
             $data = array_only(Session::getOldInput(), array('last_name', 'first_name', 'email', 'pref_id'));
-            $create = User::create($data);
+            User::create($data);
         }
         return View::make('done');
     }
