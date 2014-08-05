@@ -8,7 +8,7 @@
   <header>
     <h1>フォーム>確認</h1>
   </header>
- 
+
   <section>
     <p>
       <table>
@@ -16,14 +16,14 @@
         <tr>
           <th>姓</th>
           <td>
-            {{{ Input::get('family_name') }}}
+            {{{ Input::get('last_name') }}}
           </td>
         </tr>
 
         <tr>
           <th>名</th>
           <td>
-            {{{ Input::get('given_name') }}}
+            {{{ Input::get('first_name') }}}
           </td>
         </tr>
 
@@ -44,7 +44,7 @@
         <tr>
           <th>都道府県</th>
           <td>
-            <!--PENDING-->
+            {{{ $pref_view }}}
           </td>
         </tr>
 
@@ -65,7 +65,7 @@
         <tr>
           <th>ご意見</th>
           <td>
-            {{{ Input::get('comment') }}}
+            {{ nl2br(Input::get('comment')) }}
           </td>
         </tr>
       </table>
