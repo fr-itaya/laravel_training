@@ -32,6 +32,15 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 
     }
 
+    public function tearDown()
+    {
+        parent::teardown();
+        //DB終期処理
+        if ($this->useDB) {
+            $this->tearDownDB();
+        }
+    }
+
     protected function setUpDB()
     {
         //DB作成
