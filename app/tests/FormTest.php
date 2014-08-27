@@ -23,6 +23,12 @@ class FormTest extends TestCase {
 
     public function testRoutingPostConfirm()
     {
+        $response = $this->call('POST', 'confirm');
+        $this->assertResponseOk();
+    }
+
+    public function testCsrfRouteFilter()
+    {
         $csrf_token = csrf_token();
         $this->session(array(
             '_token' => $csrf_token
@@ -30,8 +36,7 @@ class FormTest extends TestCase {
         );
         //route fillter(for CSRF test)
         Route::enableFilters();
-        $response = $this->client->request('POST', 'confirm');
-        $this->assertResponseOk();
+
     }
 
     public function testRoutingPostDone()
