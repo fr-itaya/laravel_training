@@ -30,9 +30,10 @@ class FormTest extends TestCase {
     public function testCsrfRouteFilter()
     {
         $csrf_token = csrf_token();
-        $response = $this->call('POST', 'confirm');
+        $this->session(['_token' => $csrf_token]);
         Route::enableFilters();
-        $this->assertNotEquals($csrf_token, $response);
+        $response = $this->call('POST', 'confirm');
+        $this->assertResponseOk();
 
     }
 
@@ -43,11 +44,34 @@ class FormTest extends TestCase {
     }
 
     //Controller
-    //Model
+    //View渡せてるか
+    public function testTopReturnsView()
+    {
+        //Laravel4のヘルパーで行けたはず
+
+    }
+
+    public function testFormReturnsView()
+    {
+
+    }
+
+    public function testConfirmReturnsView()
+    {
+
+    }
+
+    public function testDoneReturnsView()
+    {
+
+    }
 
     public function testViewHasPrefValue()
     {
         $this->action('GET', 'FormController@getForm');
         $this->assertViewHas('data');
     }
+
+    //Model
+
 }
