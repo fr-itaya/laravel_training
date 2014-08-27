@@ -44,32 +44,66 @@ class FormTest extends TestCase {
     }
 
     //Controller
-    //View渡せてるか
-    public function testTopReturnsView()
-    {
-        //Laravel4のヘルパーで行けたはず
-
-    }
+    //値を渡す必要があるControllerでViewに値を渡せてるか
 
     public function testFormReturnsView()
     {
-
+        $this->action('GET', 'FormController@getForm');
+        $this->assertViewHas('data');
     }
 
     public function testConfirmReturnsView()
     {
+        $this->action('POST', 'FormController@postConfirm');
+        $this->assertViewHas('hobby_view');
+        $this->assertViewHas('pref_view');
 
     }
 
-    public function testDoneReturnsView()
+    //Validators
+    public function testValidateFirstName()
     {
 
     }
 
-    public function testViewHasPrefValue()
+    public function testValidateLastName()
     {
-        $this->action('GET', 'FormController@getForm');
-        $this->assertViewHas('data');
+
+    }
+
+    public function testValidateSex()
+    {
+
+    }
+
+    public function testValidatePostalCode()
+    {
+
+    }
+
+    public function testValidatePrefId_true()
+    {
+
+    }
+
+    public function testValidatePrefId_false()
+    {
+
+    }
+
+    public function testValidateEmail_true()
+    {
+
+    }
+
+    public function testValidateEmail_false()
+    {
+
+    }
+
+    public function testValidateHobbyDetail()
+    {
+
     }
 
     //Model
