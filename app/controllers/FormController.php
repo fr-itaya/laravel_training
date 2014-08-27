@@ -29,6 +29,7 @@ class FormController extends BaseController {
                 }
             }
 
+            //入力値バリデート
             Validator::extend('regex_full_width_chars', 'CustomValidator@regexFullWidthChars');
 
             $rules = array(
@@ -85,9 +86,14 @@ class FormController extends BaseController {
             }
         }
 
-        //確認画面表示用
-        $hobby_view = implode(' ', Session::getOldInput('hobby'));
+        //確認画面表示用(趣味欄に記入あれば)
+        $hobby_view = '';
+        if (!empty(Input::get('hobby'))) {
+            $hobby_view = implode(' ', Input::get('hobby'));
+        }
+        //確認画面表示用：都道府県(idを名前に変換)
         $pref_view  = Prefecture::where('pref_id', Session::getOldInput('pref_id'))->pluck('pref_name');
+
         return View::make('confirm')->with(array('hobby_view' => $hobby_view, 'pref_view' => $pref_view));
     }
 
