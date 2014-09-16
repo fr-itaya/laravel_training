@@ -66,17 +66,8 @@ class FormController extends BaseController {
                 'hobby.4'             => 'その他の詳細'
             );
 
-            //チェックボックスへの自動入力
-            $hobbies = array(
-                1 => Input::get('hobby.1'),
-                2 => Input::get('hobby.2'),
-                3 => "その他：",
-                4 => Input::get('hobby.4')
-            );
-            if (Input::has('hobby.4') && empty(Input::get('hobby.3'))) {
-                Input::merge(array('hobby' => $hobbies));
-                Input::flash();
-            }
+
+            FormController::hobbyAutoCheck();
 
             $validator = Validator::make($form_data_trimmed, $rules, $error_messages);
             $validator->setAttributeNames($names);
@@ -96,6 +87,21 @@ class FormController extends BaseController {
 
         return View::make('confirm')->with(array('hobby_view' => $hobby_view, 'pref_view' => $pref_view));
     }
+
+    public function hobbyAutoCheck() {
+        //チェックボックスへの自動入力
+        $hobbies = array(
+            1 => Input::get('hobby.1'),
+            2 => Input::get('hobby.2'),
+            3 => "その他：",
+            4 => Input::get('hobby.4')
+        );
+        if (Input::has('hobby.4') && empty(Input::get('hobby.3'))) {
+            Input::merge(array('hobby' => $hobbies));
+            Input::flash();
+        }
+    }
+
 
     public function postDone() {
         Session::reflash();
