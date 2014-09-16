@@ -43,6 +43,12 @@ class FormTest extends TestCase {
         $this->assertResponseOk();
     }
 
+    public function testValidateRedirect()
+    {
+        $response = $this->call('POST', 'confirm');
+        //$this->assertRedirectedTo('form');
+    }
+
     //Controller
     //値を渡す必要があるControllerでViewに値を渡せてるか
 
@@ -61,49 +67,18 @@ class FormTest extends TestCase {
     }
 
     //Validators
-    public function testValidateFirstName()
+    public function testValidate_true()
     {
-
+        // $validator = Validator::make($input, $rules);
+        // $validator->
+        // $this->assertTrue($validator->passes());
     }
 
-    public function testValidateLastName()
+    public function testValidate_false()
     {
-
-    }
-
-    public function testValidateSex()
-    {
-
-    }
-
-    public function testValidatePostalCode()
-    {
-
-    }
-
-    public function testValidatePrefId_true()
-    {
-
-    }
-
-    public function testValidatePrefId_false()
-    {
-
-    }
-
-    public function testValidateEmail_true()
-    {
-
-    }
-
-    public function testValidateEmail_false()
-    {
-
-    }
-
-    public function testValidateHobbyDetail()
-    {
-
+        $this->action('POST', 'FormController@postConfirm');
+        // $this->assertRedirectedTo('form');
+        // $this->assertSessionHasErrors();
     }
 
     //Model
