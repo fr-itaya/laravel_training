@@ -16,7 +16,7 @@ class FormController extends BaseController {
     public function postConfirm() {
         Input::flash();
         if ($form_data = Input::all()) {
-            $form_data_trimmed = FormController::trimSpaces($form_data);
+            $form_data_trimmed = Form::trimSpaces($form_data);
 
             //入力値バリデート
             Validator::extend('regex_full_width_chars', 'CustomValidator@regexFullWidthChars');
@@ -74,24 +74,6 @@ class FormController extends BaseController {
         $pref_view  = Prefecture::where('pref_id', Session::getOldInput('pref_id'))->pluck('pref_name');
 
         return View::make('confirm')->with(array('hobby_view' => $hobby_view, 'pref_view' => $pref_view));
-    }
-
-    public function trimSpaces($form_data) {
-        $form_data_trimmed = array();
-        foreach ($form_data as $key => $val) {
-            if (is_array($val)) {
-                //配列の場合
-                foreach ($val as $key_array => $val_array) {
-                    $form_data_trimmed[$key][$key_array] = trim(mb_convert_kana($val[$key_array], 's', 'utf-8'));
-                }
-            } else {
-                //変数の場合
-                $form_data_trimmed[$key] = trim(mb_convert_kana($val, 's', 'utf-8'));
-            }
-        }
-        Input::merge($form_data_trimmed);
-        Input::flash();
-        return $form_data_trimmed;
     }
 
     public function hobbyAutoCheck() {
