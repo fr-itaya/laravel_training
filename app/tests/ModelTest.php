@@ -1,6 +1,4 @@
 <?php
-//use Mockery as m;
-//use Illuminate\Http\Request;
 
 class ModelTest extends TestCase {
 
@@ -9,14 +7,6 @@ class ModelTest extends TestCase {
     public function setUp()
     {
         parent::setUp();
-        //$request = Request::create('foo');
-        //$session = m::mock('Symfony\Component\HttpFoundation\Session\SessionInterface');
-        //$request = Request::setSession($session);
-    }
-
-    public function tearDown()
-    {
-        //m::close();
     }
 
     //空白トリム
@@ -40,7 +30,7 @@ class ModelTest extends TestCase {
             )
         );
 
-        //Request::setSession($this->app['session.store']);
+        \Illuminate\Support\Facades\Request::setSession($this->app['session.store']);
         $result = ApplyInfo::trimSpaces($data);
         $this->assertEquals($expected, $result);
     }
