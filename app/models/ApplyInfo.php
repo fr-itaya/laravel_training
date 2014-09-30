@@ -3,6 +3,7 @@
 class ApplyInfo extends Eloquent {
 
     protected $table = 'user';
+
     public static function trimSpaces($form_data) {
         $form_data_trimmed = array();
         foreach ($form_data as $key => $val) {
