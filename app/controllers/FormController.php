@@ -16,7 +16,7 @@ class FormController extends BaseController {
     public function postConfirm() {
         Input::flash();
         if ($form_data = Input::all()) {
-            $form_data_trimmed = Form::trimSpaces($form_data);
+            $form_data_trimmed = ApplyInfo::trimSpaces($form_data);
 
             //入力値バリデート
             Validator::extend('regex_full_width_chars', 'CustomValidator@regexFullWidthChars');

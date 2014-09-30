@@ -1,8 +1,9 @@
 <?php
 
-class Form extends Eloquent {
+class ApplyInfo extends Eloquent {
 
-    public function scopeTrimSpaces($form_data) {
+    protected $table = 'user';
+    public static function trimSpaces($form_data) {
         $form_data_trimmed = array();
         foreach ($form_data as $key => $val) {
             if (is_array($val)) {
@@ -16,7 +17,7 @@ class Form extends Eloquent {
             }
         }
         Input::merge($form_data_trimmed);
-        Input::flash;
+        Input::flash();
         return $form_data_trimmed;
     }
 
