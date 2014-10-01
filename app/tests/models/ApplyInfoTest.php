@@ -9,9 +9,29 @@ class ApplyInfoTest extends TestCase {
         parent::setUp();
     }
 
-    public function testHobbyAutoCheck()
+    public function testTrimSpaces()
     {
-        //TODO:input制御のメソッドなのでcontrollerに移すか念のため確認
+        $input = array(
+            "name"  => "名取　", //末尾全角
+            "age"   => "25 ",    //末尾半角
+            "hobby" => array(
+                1 => " 音楽鑑賞",//先頭半角
+                2 => "　読書"    //先頭全角
+            )
+        );
+
+        $expected = array(
+            "name"  => "名取",
+            "age"   => "25",
+            "hobby" => array(
+                1 => "音楽鑑賞",
+                2 => "読書"
+            )
+        );
+        \Illuminate\Support\Facades\Request::setSession($this->app['session.store']);
+        $apply = new ApplyInfo;
+        $result = $apply->trimSpaces($input);
+        $this->assertEquals($expected, $result);
     }
 
 }

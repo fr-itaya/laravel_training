@@ -50,33 +50,14 @@ class FormTest extends TestCase {
     }
 
     //Controller
-    //空白トリム
-    public function testTrimSpaces()
+    //空白トリム後,Input,Sessionにそれぞれ空白トリム後の値が渡っているか
+    //Controllerのテストをここまで細分化しても却って煩雑な気がする
+    public function testInputandSessionHasTrimedValues()
     {
-        $input = array(
-            "name"  => "名取　",
-            "age"   => "25 ",
-            "hobby" => array(
-                1 => " 音楽鑑賞",
-                2 => "　読書"
-            )
-        );
 
-        $expected = array(
-            "name"  => "名取",
-            "age"   => "25",
-            "hobby" => array(
-                1 => "音楽鑑賞",
-                2 => "読書"
-            )
-        );
-        \Illuminate\Support\Facades\Request::setSession($this->app['session.store']);
-        $result = $this->FormController->trimSpaces($input);//undefined property
-        $this->assertEquals($expected, $result);
-        $this->assertSessionHas($expected);
     }
-    //値を渡す必要があるControllerでViewに値を渡せてるか
 
+    //値を渡す必要があるControllerでViewに値を渡せてるか
     public function testFormReturnsView()
     {
         $this->action('GET', 'FormController@getForm');
@@ -88,7 +69,6 @@ class FormTest extends TestCase {
         $this->action('POST', 'FormController@postConfirm');
         $this->assertViewHas('hobby_view');
         $this->assertViewHas('pref_view');
-
     }
 
     //Validators
