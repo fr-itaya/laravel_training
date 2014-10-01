@@ -57,7 +57,7 @@ class FormController extends BaseController {
                 'hobby.4'             => 'その他の詳細'
             );
 
-            ApplyInfo::hobbyAutoCheck();
+            Hobby::hobbyAutoCheck();
 
             $validator = Validator::make($form_data_trimmed, $rules, $error_messages);
             $validator->setAttributeNames($names);
