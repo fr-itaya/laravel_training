@@ -57,7 +57,18 @@ class FormController extends BaseController {
                 'hobby.4'             => 'その他の詳細'
             );
 
-            Hobby::hobbyAutoCheck();
+            $hobbies = array(
+                1 => Input::get('hobby.1'),
+                2 => Input::get('hobby.2'),
+                3 => "その他：",
+                4 => Input::get('hobby.4')
+            );
+
+            $hobby_checked = Hobby::hobbyAutoCheck($hobbies);
+            if (!$hobby_checked) {
+                Input::merge(array('hobby' => $hobbies));
+                Input::flash();
+            }
 
             $validator = Validator::make($form_data_trimmed, $rules, $error_messages);
             $validator->setAttributeNames($names);
