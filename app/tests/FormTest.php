@@ -50,6 +50,31 @@ class FormTest extends TestCase {
     }
 
     //Controller
+    //空白トリム
+    public function testTrimSpaces()
+    {
+        $input = array(
+            "name"  => "名取　",
+            "age"   => "25 ",
+            "hobby" => array(
+                1 => " 音楽鑑賞",
+                2 => "　読書"
+            )
+        );
+
+        $expected = array(
+            "name"  => "名取",
+            "age"   => "25",
+            "hobby" => array(
+                1 => "音楽鑑賞",
+                2 => "読書"
+            )
+        );
+        \Illuminate\Support\Facades\Request::setSession($this->app['session.store']);
+        $result = $this->FormController->trimSpaces($input);//undefined property
+        $this->assertEquals($expected, $result);
+        $this->assertSessionHas($expected);
+    }
     //値を渡す必要があるControllerでViewに値を渡せてるか
 
     public function testFormReturnsView()
@@ -80,7 +105,5 @@ class FormTest extends TestCase {
         // $this->assertRedirectedTo('form');
         // $this->assertSessionHasErrors();
     }
-
-    //Model
 
 }
