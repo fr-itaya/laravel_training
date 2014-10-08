@@ -16,7 +16,7 @@ class FormController extends BaseController {
     public function postConfirm() {
         $apply = new ApplyInfo;
         $hobby = new Hobby;
-        $v     = new Validation;
+        $validator = new UserValidator;
 
         Input::flash();
         if ($form_data = Input::all()) {
@@ -41,10 +41,10 @@ class FormController extends BaseController {
 
         $apply_info = Session::all();
 
-        $validator_passed = $v->runValidate($apply_info);
-        if (!$validator_passed) {
-            $errors = $v->errors();
-            return Redirect::to('form')->withErrors($errors);
+//        Validator::extend('regex_full_width_chars', 'CustomValidator@regexFullWidthChars');
+        $v = $validator->validate($apply_info);
+        if ($v->fails()) {
+            return Redirect::to('form')->withErrors($v);
         }
 
         //確認画面表示用(趣味欄に記入あれば)
