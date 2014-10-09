@@ -37,14 +37,12 @@ class FormController extends BaseController {
                 Input::flash();
             }
 
+            $v = $validator->validate($apply_info);
+            if ($v->fails()) {
+                return Redirect::to('form')->withErrors($v);
         }
 
-        $apply_info = Session::all();
 
-//        Validator::extend('regex_full_width_chars', 'CustomValidator@regexFullWidthChars');
-        $v = $validator->validate($apply_info);
-        if ($v->fails()) {
-            return Redirect::to('form')->withErrors($v);
         }
 
         //確認画面表示用(趣味欄に記入あれば)
