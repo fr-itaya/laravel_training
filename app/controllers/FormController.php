@@ -37,7 +37,7 @@ class FormController extends BaseController {
                 Input::flash();
             }
 
-            $v = $validator->validate($apply_info);
+            $v = $validator->validate($form_data_trimmed);
             if ($v->fails()) {
                 return Redirect::to('form')->withErrors($v);
         }

@@ -81,9 +81,12 @@ class FormTest extends TestCase {
 
     public function testValidate_false()
     {
+        //$validator = new UserValidator;
         $this->action('POST', 'FormController@postConfirm');
-        // $this->assertRedirectedTo('form');
-        // $this->assertSessionHasErrors();
+        //$validator->validate();
+        //$this->assertTrue($validator->fails());
+        //$this->assertRedirectedTo('form');
+        //$this->assertSessionHasErrors();
     }
 
 }

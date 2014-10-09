@@ -2,7 +2,7 @@
 
 class UserValidator
 {
-    public function Validate($input_data) {
+    public function validate($input_data) {
     //入力値バリデート
 
         $rules = array(
