@@ -16,19 +16,11 @@ class FormController extends BaseController {
     public function postConfirm() {
         Input::flash();
         if ($form_data = Input::all()) {
-            $form_data_trimmed = array();
-            foreach ($form_data as $key => $val) {
-                if (is_array($val)) {
-                    //配列の場合
-                    foreach ($val as $key_array => $val_array) {
-                        $form_data_trimmed[$key][$key_array] = trim(mb_convert_kana($val[$key_array], 's', 'utf-8'));
-                    }
-                } else {
-                    //変数の場合
-                    $form_data_trimmed[$key] = trim(mb_convert_kana($val, 's', 'utf-8'));
-                }
-            }
+            $form_data_trimmed = ApplyInfo::trimSpaces($form_data);
+        Input::merge($form_data_trimmed);
+        Input::flash();
 
+            //入力値バリデート
             Validator::extend('regex_full_width_chars', 'CustomValidator@regexFullWidthChars');
 
             $rules = array(
@@ -65,14 +57,15 @@ class FormController extends BaseController {
                 'hobby.4'             => 'その他の詳細'
             );
 
-            //チェックボックスへの自動入力
             $hobbies = array(
                 1 => Input::get('hobby.1'),
                 2 => Input::get('hobby.2'),
                 3 => "その他：",
                 4 => Input::get('hobby.4')
             );
-            if (Input::has('hobby.4') && empty(Input::get('hobby.3'))) {
+
+            $hobby_checked = Hobby::hobbyAutoCheck($hobbies);
+            if (!$hobby_checked) {
                 Input::merge(array('hobby' => $hobbies));
                 Input::flash();
             }
@@ -85,9 +78,15 @@ class FormController extends BaseController {
             }
         }
 
-        //確認画面表示用
-        $hobby_view = implode(' ', Session::getOldInput('hobby'));
+        //確認画面表示用(趣味欄に記入あれば)
+        $hobby_view = '';
+        if (!empty(Input::get('hobby'))) {
+            $hobby_view = implode(' ', Input::get('hobby'));
+        }
+
+        //確認画面表示用：都道府県(idを名前に変換)
         $pref_view  = Prefecture::where('pref_id', Session::getOldInput('pref_id'))->pluck('pref_name');
+
         return View::make('confirm')->with(array('hobby_view' => $hobby_view, 'pref_view' => $pref_view));
     }
 

@@ -2,18 +2,58 @@
 
 class TestCase extends Illuminate\Foundation\Testing\TestCase {
 
-	/**
-	 * Creates the application.
-	 *
-	 * @return \Symfony\Component\HttpKernel\HttpKernelInterface
-	 */
-	public function createApplication()
-	{
-		$unitTesting = true;
+    /**
+     * DB利用flag
+     */
+    protected $useDB = true;
 
-		$testEnvironment = 'testing';
+    /**
+  	 * Creates the application.
+  	 *
+  	 * @return \Symfony\Component\HttpKernel\HttpKernelInterface
+  	 */
+    public function createApplication()
+    {
+        $unitTesting = true;
 
-		return require __DIR__.'/../../bootstrap/start.php';
-	}
+        $testEnvironment = 'testing';
 
+        return require __DIR__.'/../../bootstrap/start.php';
+    }
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        //DB初期化処理
+        if ($this->useDB) {
+            $this->setUpDB();
+        }
+
+    }
+
+    public function tearDown()
+    {
+        parent::teardown();
+        //DB終期処理
+        if ($this->useDB) {
+            $this->tearDownDB();
+        }
+    }
+
+    protected function setUpDB()
+    {
+        //DB作成
+        Artisan::call('migrate');
+        //テストデータ登録
+        $this->seed();
+    }
+
+    protected function tearDownDB()
+    {
+        //テーブル削除
+        Artisan::call('migrate:reset');
+        //DBから切断(too many connections対策)
+        DB::disconnect();
+    }
 }
