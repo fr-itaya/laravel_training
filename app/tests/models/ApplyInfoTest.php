@@ -2,8 +2,6 @@
 
 class ApplyInfoTest extends TestCase {
 
-    public $apply;
-
     public function setUp()
     {
         parent::setUp();

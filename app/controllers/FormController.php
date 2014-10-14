@@ -21,8 +21,8 @@ class FormController extends BaseController {
         Input::flash();
         if ($form_data = Input::all()) {
             $form_data_trimmed = $apply->trimSpaces($form_data);
-        Input::merge($form_data_trimmed);
-        Input::flash();
+            Input::merge($form_data_trimmed);
+            Input::flash();
 
             $hobbies = array(
                 1 => Input::get('hobby.1'),
@@ -40,8 +40,7 @@ class FormController extends BaseController {
             $v = $validator->validate($form_data_trimmed);
             if ($v->fails()) {
                 return Redirect::to('form')->withErrors($v);
-        }
-
+            }
 
         }
 
