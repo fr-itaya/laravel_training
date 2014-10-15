@@ -50,8 +50,6 @@ class FormTest extends TestCase {
     }
 
     //Controller
-    //空白トリム後,Input,Sessionにそれぞれ空白トリム後の値が渡っているか
-    //Controllerのテストをここまで細分化しても却って煩雑な気がする
     public function testInputandSessionHasTrimedValues()
     {
 
@@ -81,9 +79,12 @@ class FormTest extends TestCase {
 
     public function testValidate_false()
     {
+        //$validator = new UserValidator;
         $this->action('POST', 'FormController@postConfirm');
-        // $this->assertRedirectedTo('form');
-        // $this->assertSessionHasErrors();
+        //$validator->validate();
+        //$this->assertTrue($validator->fails());
+        //$this->assertRedirectedTo('form');
+        //$this->assertSessionHasErrors();
     }
 
 }

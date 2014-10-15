@@ -7,6 +7,7 @@ class HobbyTest extends TestCase {
     public function setUp()
     {
         parent::setUp();
+        $this->hobby = new Hobby;
     }
 
     public function testHobbyAutoCheck_true_other_exists()
@@ -17,8 +18,7 @@ class HobbyTest extends TestCase {
             3 => 'その他：',
             4 => '読書'
         );
-        $hobby = new Hobby;
-        $result = $hobby->hobbyAutoCheck($hobbies_filled_all);
+        $result = $this->hobby->hobbyAutoCheck($hobbies_filled_all);
         $this->assertTrue($result);
     }
 
@@ -30,8 +30,7 @@ class HobbyTest extends TestCase {
             3 => '',
             4 => ''
         );
-        $hobby = new Hobby;
-        $result = $hobby->hobbyAutoCheck($hobbies_other_none);
+        $result = $this->hobby->hobbyAutoCheck($hobbies_other_none);
         $this->assertTrue($result);
     }
     public function testHobbyAutoCheck_false()
@@ -42,8 +41,7 @@ class HobbyTest extends TestCase {
             3 => '',
             4 => '読書'
         );
-        $hobby = new Hobby;
-        $result = $hobby->hobbyAutoCheck($hobbies_detail_exists);
+        $result = $this->hobby->hobbyAutoCheck($hobbies_detail_exists);
         $this->assertFalse($result);
     }
 
