@@ -41,7 +41,6 @@ class FormController extends BaseController {
             if ($v->fails()) {
                 return Redirect::to('form')->withErrors($v);
             }
-
         }
 
         //確認画面表示用(趣味欄に記入あれば)

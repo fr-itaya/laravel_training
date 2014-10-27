@@ -1,9 +1,8 @@
 <?php
 
-class UserValidator
-{
+class UserValidator {
+
     public function validate($input_data) {
-    //入力値バリデート
 
         $rules = array(
             'last_name'            => array('required', 'regex_full_width_chars', 'max:50'),
@@ -45,5 +44,4 @@ class UserValidator
         return $validator;
 
     }
-
 }

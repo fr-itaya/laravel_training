@@ -17,5 +17,4 @@ class ApplyInfo {
         }
         return $form_data_trimmed;
     }
-
 }
