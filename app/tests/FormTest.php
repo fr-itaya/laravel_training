@@ -73,7 +73,8 @@ class FormTest extends TestCase {
     //Controller
     //値を渡す必要があるControllerでViewに値を渡せてるか
     public function testFormReturnsView() {
-        $this->action('GET', 'FormController@getForm');
+        $response = $this->action('GET', 'FormController@getForm');
+        $this->assertEquals('form', $response->original->getName());
         $this->assertViewHas('data');
     }
 
@@ -86,12 +87,26 @@ class FormTest extends TestCase {
     //Validators
     public function testValidate_true() {
         $response = $this->action('POST', 'FormController@postConfirm', array(), $this->input_passes);
+        $this->assertEquals('confirm', $response->original->getName());
         $this->assertViewHas('hobby_view', 'その他： 読書');
+        $this->assertViewHas('pref_view', '愛媛県');
+    }
+
+    public function testPostDoneWithRightinput() {
+        $response = $this->action('POST', 'FormController@postDone', array(), $this->input_passes);
+        $this->assertEquals('done', $response->original->getName());
+        $data = array_only($this->input_passes,
+            array('last_name', 'first_name', 'email', 'pref_id'));
+        $db_column = User::orderBy('user_id', 'DESC')->first()
+            //->pluck('last_name', 'first_name', 'email', 'pref_id')
+            ->toArray();
+        //$this->assertEquals($data, $db_column);
     }
 
     public function testValidate_false() {
         $this->action('POST', 'FormController@postConfirm', $this->input_fails);
         $this->assertRedirectedTo('form');
+        $this->assertHasOldInput();
         $this->assertSessionHasErrors();
     }
 }
