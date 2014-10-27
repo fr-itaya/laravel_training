@@ -2,8 +2,6 @@
 
 class FormTest extends TestCase {
 
-    private $validator;
-
     private $input_passes = array(
             'last_name'            => '秋山',
             'first_name'           => '好古',
@@ -38,7 +36,6 @@ class FormTest extends TestCase {
 
     public function setUp() {
         parent::setUp();
-        $validator = new UserValidator;
     }
 
     //routing
