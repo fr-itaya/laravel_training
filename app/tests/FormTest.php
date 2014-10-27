@@ -2,6 +2,8 @@
 
 class FormTest extends TestCase {
 
+    private $validator;
+
     private $input_passes = array(
             'last_name'            => '秋山',
             'first_name'           => '好古',
@@ -36,6 +38,7 @@ class FormTest extends TestCase {
 
     public function setUp() {
         parent::setUp();
+        $validator = new UserValidator;
     }
 
     //routing
@@ -67,16 +70,7 @@ class FormTest extends TestCase {
         $this->assertResponseOk();
     }
 
-    public function testValidateRedirect() {
-        $response = $this->call('POST', 'confirm');
-        //$this->assertRedirectedTo('form');
-    }
-
     //Controller
-    public function testInputandSessionHasTrimedValues() {
-
-    }
-
     //値を渡す必要があるControllerでViewに値を渡せてるか
     public function testFormReturnsView() {
         $this->action('GET', 'FormController@getForm');
@@ -91,17 +85,13 @@ class FormTest extends TestCase {
 
     //Validators
     public function testValidate_true() {
-        // $validator = Validator::make($input, $rules);
-        // $validator->
-        // $this->assertTrue($validator->passes());
+        $response = $this->action('POST', 'FormController@postConfirm', array(), $this->input_passes);
+        $this->assertViewHas('hobby_view', 'その他： 読書');
     }
 
     public function testValidate_false() {
-        //$validator = new UserValidator;
-        $this->action('POST', 'FormController@postConfirm');
-        //$validator->validate();
-        //$this->assertTrue($validator->fails());
-        //$this->assertRedirectedTo('form');
-        //$this->assertSessionHasErrors();
+        $this->action('POST', 'FormController@postConfirm', $this->input_fails);
+        $this->assertRedirectedTo('form');
+        $this->assertSessionHasErrors();
     }
 }
