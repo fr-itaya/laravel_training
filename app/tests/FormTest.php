@@ -111,13 +111,16 @@ class FormTest extends TestCase {
     }
 
     public function testDoneCreatesUser_rightInput() {
+        $this->action('POST', 'FormController@postConfirm', array(), $this->input_passes);
+        $this->action('POST', 'FormController@postDone');
         $db_column = array('last_name', 'first_name', 'email', 'pref_id');
         $test_user = array_only($this->input_passes, $db_column);
-        User::create($test_user);
         $latest_record = User::orderBy('user_id', 'DESC')->first()->toArray();
         $latest_user = array_only($latest_record, $db_column);
         $this->assertEquals($test_user, $latest_user);
-        //このテストが終わったらテスト内で追加したレコードを消したい
+        //assertionが終ったらテスト内で追加したレコードを削除
+        $latest_user_id = User::max('user_id');
+        User::where('user_id', '=', $latest_user_id)->delete();
     }
 
     // バリデータを通らない入力パターンだった場合の挙動についてのみ見ている
