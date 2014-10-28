@@ -69,46 +69,70 @@ class FormTest extends TestCase {
 
     //Controller
     //値を渡す必要があるControllerでViewに値を渡せてるか
-    public function testFormReturnsViewWithValue() {
+    public function testFormReturnsView() {
         $response = $this->action('GET', 'FormController@getForm');
         $this->assertEquals('form', $response->original->getName());
+    }
+
+    public function testFormReturnsViewWithValue() {
+        $response = $this->action('GET', 'FormController@getForm');
         $this->assertViewHas('data');
     }
 
-    public function testConfirmReturnsViewWithValues() {
+    public function testConfirmReturnsViewWithValues_hobbies() {
         $this->action('POST', 'FormController@postConfirm');
         $this->assertViewHas('hobby_view');
+    }
+
+    public function testConfirmReturnsViewWithValues_prefName() {
+        $this->action('POST', 'FormController@postConfirm');
         $this->assertViewHas('pref_view');
     }
 
-    //Validators
-    public function testViewWithRightValues_rightInput() {
+    //バリデータが通った後の挙動
+    public function testConfirmReturnsView_rightInput() {
         $response = $this->action('POST', 'FormController@postConfirm', array(), $this->input_passes);
         $this->assertEquals('confirm', $response->original->getName());
+    }
+
+    public function testConfirmViewWithRightValues_rightInput_hobbies() {
+        $response = $this->action('POST', 'FormController@postConfirm', array(), $this->input_passes);
         $this->assertViewHas('hobby_view', 'その他： 読書');
+    }
+
+    public function testViewWithRightValues_rightInput_prefName() {
+        $response = $this->action('POST', 'FormController@postConfirm', array(), $this->input_passes);
         $this->assertViewHas('pref_view', '愛媛県');
     }
 
-    public function testPostDone_Rightinput() {
+    public function testDoneReturnsView_rightInput() {
         $response = $this->action('POST', 'FormController@postDone', array(), $this->input_passes);
         $this->assertEquals('done', $response->original->getName());
+    }
 
+    public function testDoneCreatesUser_rightInput() {
         $db_column = array('last_name', 'first_name', 'email', 'pref_id');
         $test_user = array_only($this->input_passes, $db_column);
         User::create($test_user);
         $latest_record = User::orderBy('user_id', 'DESC')->first()->toArray();
         $latest_user = array_only($latest_record, $db_column);
-
         $this->assertEquals($test_user, $latest_user);
         //このテストが終わったらテスト内で追加したレコードを消したい
     }
 
     // バリデータを通らない入力パターンだった場合の挙動についてのみ見ている
-    // バリデータ自体のテストはUserValidatorTestでやっているので
-    public function testRedirect_falseInput() {
+    public function testConfirmRedirectToForm_falseInput() {
         $this->action('POST', 'FormController@postConfirm', $this->input_fails);
         $this->assertRedirectedTo('form');
+    }
+
+    public function testRedirectHasOlsInput_falseInput() {
+        $this->action('POST', 'FormController@postConfirm', $this->input_fails);
         $this->assertHasOldInput();
+    }
+
+    public function testRedirectHasErrors_falseInput() {
+        $this->action('POST', 'FormController@postConfirm', $this->input_fails);
         $this->assertSessionHasErrors();
     }
 }
