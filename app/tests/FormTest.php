@@ -67,8 +67,8 @@ class FormTest extends TestCase {
         $this->assertResponseOk();
     }
 
-    //Controller
-    //値を渡す必要があるControllerでViewに値を渡せてるか
+    // Controller
+    // Viewと共に渡す値について
     public function testFormReturnsView() {
         $response = $this->action('GET', 'FormController@getForm');
         $this->assertEquals('form', $response->original->getName());
@@ -89,7 +89,7 @@ class FormTest extends TestCase {
         $this->assertViewHas('pref_view');
     }
 
-    //バリデータが通った後の挙動
+    // バリデータが通った後の挙動
     public function testConfirmReturnsView_rightInput() {
         $response = $this->action('POST', 'FormController@postConfirm', array(), $this->input_passes);
         $this->assertEquals('confirm', $response->original->getName());
@@ -111,13 +111,11 @@ class FormTest extends TestCase {
     }
 
     public function testDoneCreatesUser_rightInput() {
-        // Controller呼び出し
-        // Session::getoldInput()のデータを基にクエリを組み立てるので,
+        // Session::getOldInput()のデータを基にクエリを組み立てるので,
         // 先に確認画面のコントローラに入力値を渡して呼び出す
         $this->action('POST', 'FormController@postConfirm', array(), $this->input_passes);
         $this->action('POST', 'FormController@postDone');
 
-        // 追加したテスト用データとDBの最新レコード1件を比較
         $db_column = array('last_name', 'first_name', 'email', 'pref_id');
         $test_user = array_only($this->input_passes, $db_column);
         $latest_record = User::orderBy('user_id', 'DESC')
