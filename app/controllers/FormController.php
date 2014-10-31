@@ -41,13 +41,13 @@ class FormController extends BaseController {
             if ($v->fails()) {
                 return Redirect::to('form')->withErrors($v);
             }
-
         }
 
         //確認画面表示用(趣味欄に記入あれば)
         $hobby_view = '';
         if (!empty(Input::get('hobby'))) {
-            $hobby_view = implode(' ', Input::get('hobby'));
+            $hobby_merged = implode(' ', Input::get('hobby'));
+            $hobby_view = trim($hobby_merged);
         }
 
         //確認画面表示用：都道府県(idを名前に変換)

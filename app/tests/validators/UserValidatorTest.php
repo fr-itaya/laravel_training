@@ -4,14 +4,12 @@ class UserValidatorTest extends TestCase {
 
     private $validator;
 
-    public function setUp()
-    {
+    public function setUp() {
         parent::setUp();
         $this->validator = new UserValidator;
     }
 
-    public function testValidatePasses()
-    {
+    public function testValidatePasses() {
         $input_data_passes = array(
             'last_name'            => '秋山',
             'first_name'           => '好古',
@@ -34,14 +32,12 @@ class UserValidatorTest extends TestCase {
     /**
      * @dataProvider provider
      */
-    public function testValidateFails($input_data)
-    {
+    public function testValidateFails($input_data) {
         $v = $this->validator->validate($input_data);
         $this->assertTrue($v->fails());
     }
 
-    public function provider()
-    {
+    public function provider() {
         return array(
             //未入力
             array(
@@ -243,5 +239,4 @@ class UserValidatorTest extends TestCase {
             )
         );
     }
-
 }

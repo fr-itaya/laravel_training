@@ -1,6 +1,7 @@
 <?php
 
 class Hobby {
+
     public function hobbyAutoCheck($hobbies) {
         //チェックボックスへの自動入力
         if (empty($hobbies[4]))  return true;
