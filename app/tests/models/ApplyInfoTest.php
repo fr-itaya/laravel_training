@@ -2,15 +2,11 @@
 
 class ApplyInfoTest extends TestCase {
 
-    public $apply;
-
-    public function setUp()
-    {
+    public function setUp() {
         parent::setUp();
     }
 
-    public function testTrimSpaces()
-    {
+    public function testTrimSpaces() {
         $input = array(
             "name"  => "名取　", //末尾全角
             "age"   => "25 ",    //末尾半角
@@ -33,5 +29,4 @@ class ApplyInfoTest extends TestCase {
         $result = $apply->trimSpaces($input);
         $this->assertEquals($expected, $result);
     }
-
 }

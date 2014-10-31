@@ -14,48 +14,15 @@ class FormController extends BaseController {
     }
 
     public function postConfirm() {
+        $apply = new ApplyInfo;
+        $hobby = new Hobby;
+        $validator = new UserValidator;
+
         Input::flash();
         if ($form_data = Input::all()) {
-            $form_data_trimmed = ApplyInfo::trimSpaces($form_data);
-        Input::merge($form_data_trimmed);
-        Input::flash();
-
-            //入力値バリデート
-            Validator::extend('regex_full_width_chars', 'CustomValidator@regexFullWidthChars');
-
-            $rules = array(
-                'last_name'            => array('required', 'regex_full_width_chars', 'max:50'),
-                'first_name'           => array('required', 'regex_full_width_chars', 'max:50'),
-                'sex'                  => 'required',
-                'postalcode'           => 'array',
-                'postalcode.zone'      => 'required|regex:/^[0-9]+$/|size:3',
-                'postalcode.district'  => 'required|regex:/^[0-9]+$/|size:4',
-                'pref_id'              => 'exists:prefectures,pref_id',
-                'email'                => 'required | email',
-                'hobby.4'              => 'required_if:hobby.3,"その他："'
-            );
-
-            $error_messages = array(
-                'required'               => ':attributeを入力してください',
-                'exists'                 => ':attributeを入力してください',
-                'regex_full_width_chars' => ':attributeは全角で入力してください',
-                'regex'                  => ':attributeを正しく入力してください',
-                'max'                    => ':attributeを:max字以内で入力してください',
-                'size'                   => ':attributeを正しく入力してください',
-                'email'                  => ':attributeを正しく入力してください',
-                'required_if'            => ':attributeを入力してください'
-            );
-
-            $names = array(
-                'last_name'           => '姓',
-                'first_name'          => '名',
-                'sex'                 => '性別',
-                'postalcode.zone'     => '郵便番号',
-                'postalcode.district' => '郵便番号',
-                'pref_id'             => '都道府県',
-                'email'               => 'メールアドレス',
-                'hobby.4'             => 'その他の詳細'
-            );
+            $form_data_trimmed = $apply->trimSpaces($form_data);
+            Input::merge($form_data_trimmed);
+            Input::flash();
 
             $hobbies = array(
                 1 => Input::get('hobby.1'),
@@ -64,24 +31,23 @@ class FormController extends BaseController {
                 4 => Input::get('hobby.4')
             );
 
-            $hobby_checked = Hobby::hobbyAutoCheck($hobbies);
+            $hobby_checked = $hobby->hobbyAutoCheck($hobbies);
             if (!$hobby_checked) {
                 Input::merge(array('hobby' => $hobbies));
                 Input::flash();
             }
 
-            $validator = Validator::make($form_data_trimmed, $rules, $error_messages);
-            $validator->setAttributeNames($names);
-
-            if ($validator->fails()) {
-                return Redirect::to('form')->withErrors($validator);
+            $v = $validator->validate($form_data_trimmed);
+            if ($v->fails()) {
+                return Redirect::to('form')->withErrors($v);
             }
         }
 
         //確認画面表示用(趣味欄に記入あれば)
         $hobby_view = '';
         if (!empty(Input::get('hobby'))) {
-            $hobby_view = implode(' ', Input::get('hobby'));
+            $hobby_merged = implode(' ', Input::get('hobby'));
+            $hobby_view = trim($hobby_merged);
         }
 
         //確認画面表示用：都道府県(idを名前に変換)
